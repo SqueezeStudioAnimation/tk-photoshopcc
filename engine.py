@@ -196,6 +196,14 @@ class PhotoshopCCEngine(sgtk.platform.Engine):
         # keep a list of handles on the launched dialogs
         self.__qt_dialogs = []
 
+        # Update path_cache.db associated with the project photoshop plugin local config cache
+        if self.context and self.context.entity:
+            self.logger.debug("Updating cache for engine plugin {}".format("tk-photoshopcc"))
+            # Put photoshop to ensure that specific app folder will be created
+            self.sgtk.create_filesystem_structure(self.context.entity["type"],
+                                                  self.context.entity["id"],
+                                                  "tk_photoshop")
+
     def post_app_init(self):
         """
         Runs after all apps have been initialized.
